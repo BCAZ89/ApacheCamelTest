@@ -58,6 +58,12 @@
 			<version>${camel-version}</version>
 			<!-- use the same version as your Camel core version -->
 		</dependency>
+		<!-- for JSON unmarshal and marshal -->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-jackson</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
 		<!-- end -->
 
 		<dependency>

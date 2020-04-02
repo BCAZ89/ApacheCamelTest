@@ -36,7 +36,7 @@ public class CamelRoutes extends RouteBuilder {
         // https://camel.apache.org/components/latest/activemq-component.html
         // queue name is "queue.testggal"
         // https://camel.apache.org/components/latest/languages/simple-language.html
-        from("timer:mytimer?period=5000&delay=10000&repeatCount=3")
+        from("timer:mytimer?period=5000&delay=20000&repeatCount=3")
                 .setBody(simple("Hello from timer at ${header.firedTime}"))
                 .to("activemq:queue.testggal");
 
