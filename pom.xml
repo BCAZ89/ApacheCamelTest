@@ -30,6 +30,7 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<!-- see https://camel.apache.org/components/3.0.x/spring-boot.html -->
+		<!-- Camel Spring Boot starter to startup the Camel Context -->
 		<dependency>
 			<groupId>org.apache.camel.springboot</groupId>
 			<artifactId>camel-spring-boot-starter</artifactId>
@@ -37,39 +38,39 @@
 			<version>${camel-version}</version>
 		</dependency>
 
-		<!-- add GGAL -->
+		<!-- SPRING BOOT AUTO-CONFIGURATION classic and for camel -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.camel.springboot</groupId>
 			<artifactId>camel-activemq-starter</artifactId>
 			<version>${camel-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jdbc</artifactId>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-jdbc-starter</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+		<!-- for JSON unmarshal and marshal -->
+		<!-- https://camel.apache.org/camel-spring-boot/latest/jackson-starter.html -->
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-jackson-starter</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+
+		<!-- Others dependencies -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel.springboot</groupId>
-			<artifactId>camel-jdbc-starter</artifactId>
-			<version>${camel-version}</version>
-			<!-- use the same version as your Camel core version -->
-		</dependency>
-		<!-- for JSON unmarshal and marshal -->
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-jackson</artifactId>
-			<version>${camel-version}</version>
-		</dependency>
-		<!-- end -->
-
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

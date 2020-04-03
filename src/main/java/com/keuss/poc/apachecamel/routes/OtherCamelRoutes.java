@@ -1,5 +1,6 @@
 package com.keuss.poc.apachecamel.routes;
 
+import com.keuss.poc.apachecamel.exceptions.CustomException;
 import com.keuss.poc.apachecamel.pojos.Book;
 import com.keuss.poc.apachecamel.services.MyService;
 import org.apache.camel.builder.RouteBuilder;
@@ -16,6 +17,14 @@ public class OtherCamelRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
+
+        // global (for Java DSL that is per RouteBuilder instances)
+        // can add multiple exceptions
+        onException(CustomException.class)
+                .maximumRedeliveries(3)
+                .to("activemq:queue.error")
+                .log("error sent back to the client");
+
         from("activemq:queue.testggal3")
                 .bean(MyService.class, "doSomething(${body}, ${headers}, ${headers.JMSCorrelationID})")
                 .log("Camel body: ${body}");
