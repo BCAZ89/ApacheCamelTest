@@ -1,8 +1,11 @@
 package com.keuss.poc.apachecamel.routes;
 
-import com.keuss.poc.apachecamel.exceptions.CustomException;
+import com.keuss.poc.apachecamel.exceptions.CustomRuntimeException;
 import com.keuss.poc.apachecamel.pojos.Book;
+import com.keuss.poc.apachecamel.processors.MyPrepareProcessor;
+import com.keuss.poc.apachecamel.processors.MyProcessorError;
 import com.keuss.poc.apachecamel.services.MyService;
+import lombok.RequiredArgsConstructor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jackson.JacksonDataFormat;
 import org.apache.camel.component.jackson.ListJacksonDataFormat;
@@ -10,20 +13,37 @@ import org.apache.camel.model.dataformat.JsonLibrary;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class OtherCamelRoutes extends RouteBuilder {
 
     // Fro JSON array
     JacksonDataFormat format = new ListJacksonDataFormat(Book.class);
 
+    private final MyProcessorError myProcessorError;
+
+    private final MyPrepareProcessor myPrepareProcessor;
+
     @Override
     public void configure() throws Exception {
 
         // global (for Java DSL that is per RouteBuilder instances)
-        // can add multiple exceptions
-        onException(CustomException.class)
-                .maximumRedeliveries(3)
-                .to("activemq:queue.error")
-                .log("error sent back to the client");
+        // will use original message (body and headers)
+        // can add multiple exceptions, then errorHandler
+        onException(CustomRuntimeException.class)
+                .useOriginalMessage()
+                .maximumRedeliveries(5).redeliveryDelay(1000);
+
+        // will use original message (body and headers)
+        // see https://camel.apache.org/components/latest/eips/dead-letter-channel.html
+        // and https://camel.apache.org/manual/latest/error-handler.html
+        // When Dead Letter Channel is doing redeliver its possible to configure a Processor that is executed just before
+        // every redelivery attempt. This can be used for the situations where you need to alter the message before its redelivered
+        // Before the exchange is sent to the dead letter queue, you can use onPrepare to allow a custom Processor
+        // to prepare the exchange, such as adding information why the Exchange failed.
+        errorHandler(deadLetterChannel("{{input.dlq.name}}")
+                .onRedelivery(myProcessorError)
+                .onPrepareFailure(myPrepareProcessor)
+                .useOriginalMessage().maximumRedeliveries(3).redeliveryDelay(2000));
 
         from("activemq:queue.testggal3")
                 .bean(MyService.class, "doSomething(${body}, ${headers}, ${headers.JMSCorrelationID})")

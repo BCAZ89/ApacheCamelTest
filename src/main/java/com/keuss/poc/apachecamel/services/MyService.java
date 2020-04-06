@@ -1,6 +1,6 @@
 package com.keuss.poc.apachecamel.services;
 
-import com.keuss.poc.apachecamel.exceptions.CustomException;
+import com.keuss.poc.apachecamel.exceptions.CustomRuntimeException;
 import com.keuss.poc.apachecamel.pojos.Book;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +22,10 @@ public class MyService {
         return body;
     }
 
-    public Book doSomethingJson(Book book) throws CustomException {
+    public Book doSomethingJson(Book book) {
         //test
         if (book.getId() == 1) {
-            throw new CustomException("MY ERROR !", 9999);
+            throw new CustomRuntimeException("MY ERROR !");
         }
         //----
         System.out.println("MyService doSomethingJson body " + book);
