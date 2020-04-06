@@ -42,6 +42,7 @@ public class JmsConfig {
         ActiveMQComponent activeMQComponent = new ActiveMQComponent();
         activeMQComponent.setConnectionFactory(poolConnectionFactory);
         activeMQComponent.setTransactionManager(jmsTransactionManager);
+        activeMQComponent.setUsePooledConnection(true);
         activeMQComponent.setTransacted(true);
         activeMQComponent.setLazyCreateTransactionManager(false);
         activeMQComponent.setCacheLevelName("CACHE_CONSUMER");
