@@ -83,9 +83,14 @@ public class OtherCamelRoutes extends RouteBuilder {
             }
             ]
          */
+        // Call another route with direct
+        // https://camel.apache.org/components/latest/eips/split-eip.html
         from("activemq:queue.testggal5")
                 .unmarshal(format)
                 .bean(MyService.class, "doSomethingJsonList(${body})")
-                .log("Camel body unmarshal list and bean: ${body}");
+                .split(body())
+                .marshal().json()
+                .to("direct:customLog");
+
     }
 }

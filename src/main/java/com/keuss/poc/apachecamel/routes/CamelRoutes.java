@@ -46,5 +46,8 @@ public class CamelRoutes extends RouteBuilder {
                 .process(myProcessor)
                 .log("Camel body from jms: ${body}")
                 .to("activemq:queue.testggal2");
+
+        from("direct:customLog")
+                .log("Camel body from customLog : ${body}");
     }
 }
