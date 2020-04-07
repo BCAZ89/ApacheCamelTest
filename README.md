@@ -18,7 +18,7 @@ Apache Camel and Spring Boot starter to startup the Camel Context (`org.apache.c
  - With 5 ActiveMQ queues : `queue.testggal, queue.testggal2, queue.testggal3, queue.testggal4, queue.testggal5, queue.error`
  - `java -jar target/SpringBootAndApacheCamel-0.0.1-SNAPSHOT.jar`
  - ActiveMQ administrative [interface](http://127.0.0.1:8161/admin/) (admin/admin)
- - [H2 console](http://localhost:8080/api/h2-console/) with `jdbc:h2:mem:testdb` (see my_schema.sql)
+ - [H2 console](http://localhost:8080/api/h2-console/) with `jdbc:h2:mem:testdb` (see [my_schema.sql](https://github.com/keuss/ApacheCamelTest/blob/master/src/main/resources/db/my_schema.sql))
 
 # Camel [Components](https://camel.apache.org/components/latest/index.html)
 
