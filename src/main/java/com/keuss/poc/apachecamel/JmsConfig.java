@@ -4,18 +4,27 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.pool.PooledConnectionFactory;
 import org.apache.camel.component.activemq.ActiveMQComponent;
 import org.apache.camel.component.jms.JmsComponent;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jms.connection.JmsTransactionManager;
 
 @Configuration
+@PropertySource(value = "classpath:my-application.properties")
 public class JmsConfig {
 
+    @Value("${custom.broker.url}")
+    private String borkerUrl;
+
     // setup JMS connection factory
+    // For efficient pooling of the connections and sessions for your collection of consumers
     @Bean(destroyMethod = "stop", initMethod = "start")
     PooledConnectionFactory poolConnectionFactory(final ActiveMQConnectionFactory jmsConnectionFactory) {
         PooledConnectionFactory pooledConnectionFactory = new PooledConnectionFactory();
         pooledConnectionFactory.setConnectionFactory(jmsConnectionFactory);
+        // see this in http://127.0.0.1:8161/admin/connections.jsp
+        // default value is 1 but 5 with spring configuration in properties
         pooledConnectionFactory.setMaxConnections(8);
         return pooledConnectionFactory;
     }
@@ -23,7 +32,7 @@ public class JmsConfig {
     @Bean
     ActiveMQConnectionFactory jmsConnectionFactory() {
         ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory();
-        activeMQConnectionFactory.setBrokerURL("tcp://localhost:61616");
+        activeMQConnectionFactory.setBrokerURL(borkerUrl);
         return activeMQConnectionFactory;
     }
 
