@@ -9,7 +9,7 @@ services:
     depends_on:
       - myactivemq
   myactivemq:
-    build: ./activemq
+    image: rmohr/activemq:5.15.9
     container_name: myactivemq
     restart: always
     ports:
