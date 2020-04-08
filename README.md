@@ -3,7 +3,7 @@
 Apache Camel and Spring Boot starter to startup the Camel Context (`org.apache.camel.springboot`)
 
  - Java 8
- - [Apache Camel](https://camel.apache.org/) 3.1.0 with java DSL
+ - [Apache Camel](https://camel.apache.org/) 3.2.0 with java DSL
  - [Spring Boot](https://spring.io/projects/spring-boot) 2.2.6.RELEASE
  - [Apache ActiveMQ](https://activemq.apache.org/) 5.15.12
  - Also with `spring-boot-starter-web` for Rest Controller and `spring-boot-starter-jdbc`
