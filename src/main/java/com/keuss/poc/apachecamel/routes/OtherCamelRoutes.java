@@ -23,6 +23,8 @@ public class OtherCamelRoutes extends RouteBuilder {
 
     private final MyPrepareProcessor myPrepareProcessor;
 
+    private final MyService myService;
+
     @Override
     public void configure() throws Exception {
 
@@ -46,7 +48,7 @@ public class OtherCamelRoutes extends RouteBuilder {
                 .useOriginalMessage().maximumRedeliveries(3).redeliveryDelay(2000));
 
         from("activemq:queue.testggal3")
-                .bean(MyService.class, "doSomething(${body}, ${headers}, ${headers.JMSCorrelationID})")
+                .bean(myService, "doSomething(${body}, ${headers}, ${headers.JMSCorrelationID})")
                 .log("Camel body: ${body}");
 
         // see https://stackoverflow.com/questions/50732754/configuring-datasource-for-apache-camel
@@ -56,7 +58,7 @@ public class OtherCamelRoutes extends RouteBuilder {
                 .setBody(constant("SELECT * FROM BOOK"))
                 .to("jdbc:dataSource")
                 .split(body())
-                .bean(MyService.class, "doSomethingBis(${body})")
+                .bean(myService, "doSomethingBis(${body})")
                 .log("Camel body from JDBC and bean: ${body}");
 
 
@@ -65,8 +67,9 @@ public class OtherCamelRoutes extends RouteBuilder {
         // and https://stackoverflow.com/questions/46411214/how-to-unmarshal-json-body-to-list-of-myclass-in-camel/46411822
         // with JSON : {"id": 1, "title": "LOTR 1", "author": "toto"}
         from("activemq:queue.testggal4")
+                .wireTap("seda:audit")
                 .unmarshal().json(JsonLibrary.Jackson, Book.class)
-                .bean(MyService.class, "doSomethingJson(${body})")
+                .bean(myService, "doSomethingJson(${body})")
                 .log("Camel body unmarshal and bean: ${body}");
 
         // with JSON :
@@ -87,7 +90,7 @@ public class OtherCamelRoutes extends RouteBuilder {
         // https://camel.apache.org/components/latest/eips/split-eip.html
         from("activemq:queue.testggal5")
                 .unmarshal(format)
-                .bean(MyService.class, "doSomethingJsonList(${body})")
+                .bean(myService, "doSomethingJsonList(${body})")
                 .split(body())
                 .marshal().json()
                 .to("direct:customLog");

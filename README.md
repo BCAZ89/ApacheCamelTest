@@ -25,7 +25,9 @@ Apache Camel and Spring Boot starter to startup the Camel Context (`org.apache.c
  - direct component
  - timer component
  - activemq component
+ - bean component
  - jdbc component
+ - seda component
  
 # Enterprise Integration Patterns [EPI](https://camel.apache.org/components/latest/eips/enterprise-integration-patterns.html)
 
@@ -36,3 +38,4 @@ Apache Camel and Spring Boot starter to startup the Camel Context (`org.apache.c
  - marshal & unmarshal
  - split
  - Dead Letter Channel
+ - WireTap
