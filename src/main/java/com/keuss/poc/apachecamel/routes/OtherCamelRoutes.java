@@ -65,6 +65,7 @@ public class OtherCamelRoutes extends RouteBuilder {
         // JSON https://camel.apache.org/manual/latest/json.html
         // and https://stackoverflow.com/questions/40756027/apache-camel-json-marshalling-to-pojo-java-bean
         // and https://stackoverflow.com/questions/46411214/how-to-unmarshal-json-body-to-list-of-myclass-in-camel/46411822
+        // see https://camel.apache.org/components/latest/seda-component.html
         // with JSON : {"id": 1, "title": "LOTR 1", "author": "toto"}
         from("activemq:queue.testggal4")
                 .wireTap("seda:audit")
