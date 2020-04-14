@@ -39,3 +39,4 @@ Apache Camel and Spring Boot starter to startup the Camel Context (`org.apache.c
  - split
  - Dead Letter Channel
  - WireTap
+ - Competing Consumers with SEDA and JMS concurrentConsumers)
