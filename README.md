@@ -26,14 +26,18 @@ Apache Camel and Spring Boot starter to startup the Camel Context (`org.apache.c
  - direct component
  - timer component
  - activemq component
+ - bean component
  - jdbc component
+ - seda component
  
 # Enterprise Integration Patterns [EPI](https://camel.apache.org/components/latest/eips/enterprise-integration-patterns.html)
 
- - Point to Point Channel
+ - Point to Point Channel (with JMS Queues and SEDA for in-VM seda based messaging)
  - log
  - to
  - bean
  - marshal & unmarshal
  - split
  - Dead Letter Channel
+ - WireTap
+ - Competing Consumers (with SEDA and JMS concurrentConsumers)

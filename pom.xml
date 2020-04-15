@@ -60,6 +60,26 @@
 			<artifactId>camel-jackson-starter</artifactId>
 			<version>${camel-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-direct-starter</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-timer-starter</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-bean-starter</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-seda-starter</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
 
 		<!-- Others dependencies -->
 		<dependency>
