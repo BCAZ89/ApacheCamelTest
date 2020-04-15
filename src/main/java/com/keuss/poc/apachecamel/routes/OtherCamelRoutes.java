@@ -97,7 +97,7 @@ public class OtherCamelRoutes extends RouteBuilder {
                 .to("direct:customLog");
 
 
-        from("activemq:queue.testggal6?concurrentConsumers=5")
+        from("activemq:queue.testggal6?concurrentConsumers=2")
                 .process(exchange -> {
                     System.out.println(Thread.currentThread() + " - " + exchange.getIn().getBody());
                     Thread.sleep(5000);
