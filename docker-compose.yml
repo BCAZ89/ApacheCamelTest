@@ -1,11 +1,23 @@
 version: "3"
 services:
-  myapp:
-    build: .
-    container_name: myapp
+  myapp1:
+    build:
+      context: .
+      dockerfile: Dockerfile-app1
+    container_name: myapp1
     restart: always
     ports:
       - "8080:8080"
+    depends_on:
+      - myactivemq
+  myapp2:
+    build:
+      context: .
+      dockerfile: Dockerfile-app2
+    container_name: myapp2
+    restart: always
+    ports:
+      - "8083:8083"
     depends_on:
       - myactivemq
   myactivemq:
