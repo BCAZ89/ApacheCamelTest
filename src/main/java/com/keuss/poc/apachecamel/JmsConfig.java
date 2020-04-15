@@ -59,7 +59,7 @@ public class JmsConfig {
         // May be tuning with setConcurrentConsumers !
         // see concurrentConsumers https://camel.apache.org/components/latest/activemq-component.html (default is 1)
         // see 'Number Of Consumers' from http://127.0.0.1:8161/admin/queues.jsp
-        activeMQComponent.setConcurrentConsumers(4);
+        activeMQComponent.setConcurrentConsumers(2);
         return activeMQComponent;
     }
 
