@@ -19,6 +19,7 @@ public class JmsConfig {
 
     // setup JMS connection factory
     // For efficient pooling of the connections and sessions for your collection of consumers
+    // see https://camel.apache.org/components/latest/eips/transactional-client.html#TransactionalClient-JMSSample
     @Bean(destroyMethod = "stop", initMethod = "start")
     PooledConnectionFactory poolConnectionFactory(final ActiveMQConnectionFactory jmsConnectionFactory) {
         PooledConnectionFactory pooledConnectionFactory = new PooledConnectionFactory();
@@ -37,6 +38,7 @@ public class JmsConfig {
     }
 
     // setup spring jms TX manager
+    // Camel recommends supporting the Transactional Client from the EIP patterns using spring transactions.
     @Bean
     public JmsTransactionManager jmsTransactionManager(final PooledConnectionFactory poolConnectionFactory) {
         JmsTransactionManager jmsTransactionManager = new JmsTransactionManager();
