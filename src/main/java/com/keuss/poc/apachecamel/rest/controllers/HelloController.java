@@ -3,7 +3,6 @@ package com.keuss.poc.apachecamel.rest.controllers;
 import lombok.RequiredArgsConstructor;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,9 +18,9 @@ public class HelloController {
 
     private final Random rand = new Random();
 
-    @Autowired
-    private CamelContext camelContext;
+    private final CamelContext camelContext;
 
+    // see https://camel.apache.org/manual/latest/producertemplate.html
     private final ProducerTemplate producerTemplate;
 
     @GetMapping(value = "{name}")
