@@ -14,6 +14,17 @@ public class MyService {
         System.out.println("MyService doSomething body " + body);
         System.out.println("MyService doSomething jmsCorrelationIDparam " + jmsCorrelationIDparam);
         headers.forEach((k, v) -> System.out.println(k + ":" + v));
+        System.out.println("Long process ...");
+        // Take some time ...
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //test
+        if (body.contains("error")) {
+            throw new CustomRuntimeException("MY ERROR !");
+        }
         return "Bye World";
     }
 

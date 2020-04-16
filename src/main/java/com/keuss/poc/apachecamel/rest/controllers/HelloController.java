@@ -29,10 +29,20 @@ public class HelloController {
         return "{\"data\": \"Hello " + name + "\"}";
     }
 
-    @GetMapping(value = "camel/{name}")
-    public void helloCamel(@PathVariable("name") String name) {
+    @GetMapping(value = "camel/{name}", produces = MediaType.TEXT_PLAIN_VALUE)
+    public String helloCamel(@PathVariable("name") String name) {
         // TEST with http://localhost:8080/api/hello/camel/keuss
-        producerTemplate.sendBody("direct:firstRoute", "Calling via Spring Boot Rest Controller with " + name);
+        // see https://camel.apache.org/manual/latest/producertemplate.html#ProducerTemplate-requestmethods
+        return producerTemplate.requestBody("direct:firstRoute",
+                "Calling via Spring Boot Rest Controller with " + name, String.class);
+    }
+
+    @GetMapping(value = "camel/jms/{name}", produces = MediaType.TEXT_PLAIN_VALUE)
+    public String helloCamelJms(@PathVariable("name") String name) {
+        // TEST with http://localhost:8080/api/hello/camel/jms/keuss
+        // see https://camel.apache.org/manual/latest/producertemplate.html#ProducerTemplate-requestmethods
+        return producerTemplate.requestBody("activemq:queue.testggal3",
+                "Calling via Spring Boot Rest Controller with " + name, String.class);
     }
 
     private int randomNum(int max, int min) {
