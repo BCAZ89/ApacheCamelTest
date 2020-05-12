@@ -20,7 +20,7 @@ public class SpringBootAndApacheCamelApplication {
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
             System.out.println("Let's inspect the beans provided by Spring Boot:");
-            // For example we cas see 'dataSource' bean t use with apache camel ...
+            // For example we cas see 'dataSource' bean used with apache camel ...
             String[] beanNames = ctx.getBeanDefinitionNames();
             Arrays.sort(beanNames);
             for (String beanName : beanNames) {
